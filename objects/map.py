@@ -14,7 +14,7 @@ class Map:
 
     def generate_layout(self):
         """ Returns a y by x array of empty lists. """
-        path = c.MAP_PATH_DICT["ship_map"]
+        path = c.TEXT_PATH_DICT["ship_map"]
         with open(path) as f:
             lines = [line.strip() for line in f.readlines()]
 
