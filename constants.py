@@ -31,6 +31,7 @@ DOWN = (0, 1)
 LEFT = (-1, 0)
 RIGHT = (1, 0)
 NO_DIRECTION = (0, 0)
+DIRECTIONS = (UP, DOWN, LEFT, RIGHT)
 
 # Text mapping
 WALL_CHAR = "W"

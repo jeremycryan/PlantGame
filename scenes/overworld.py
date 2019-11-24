@@ -1,5 +1,6 @@
 from scene import Scene
 from objects.player import Player
+from objects.character import Rando
 from objects.map import Map
 from objects.camera import Camera
 
@@ -11,9 +12,9 @@ class OverWorld(Scene):
         self.game = game
         self.map = Map(self)
         self.player = Player(self)
+        self.characters = [Rando(self, pos=(8, 5))]
         self.camera = Camera()
-        self.objects = [self.player,
-                        self.camera]
+        self.objects = [self.player, self.camera] + self.characters
 
     def draw(self, surface):
         surface.fill((100, 150, 200))
@@ -26,4 +27,4 @@ class OverWorld(Scene):
         super().update(dt, events)
         for item in self.objects:
             item.update(dt, events)
-        self.camera.set_position(self.player.draw_x, self.player.draw_y)
+        self.camera.set_target_position(self.player.draw_x, self.player.draw_y)

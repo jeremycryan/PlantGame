@@ -1,3 +1,5 @@
+import pygame
+
 import constants as c
 
 
@@ -15,7 +17,18 @@ class StaticOverWorldObject(OverWorldObject):
     def __init__(self, scene, key):
         super().__init__(scene)
         self.sprite = self.scene.load_image(key)
+        self.scale((64, 64), c.TILE_SIZE)
         self.width, self.height = self.sprite.get_width(), self.sprite.get_height()
+
+    def scale(self, original_tile_size, new_tile_size):
+        """ Scales the sprite based on two tuples of sizes.
+
+            e.g. A sprite was drawn for tile size 64x64, but should be rendered as 48x48.
+            Call sprite.scale((64, 64), (48, 48))
+        """
+        new_width = int(self.sprite.get_width() * new_tile_size[0] / original_tile_size[0])
+        new_height = int(self.sprite.get_height() * new_tile_size[1] / original_tile_size[1])
+        self.sprite = pygame.transform.scale(self.sprite, (new_width, new_height))
 
     def draw(self, surface, x, y):
         x_with_offset = x + c.TILE_WIDTH//2 - self.width//2
