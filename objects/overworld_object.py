@@ -1,6 +1,7 @@
 import pygame
 
 import constants as c
+from pyracy.sprite_tools import Sprite, SpriteSheet
 
 
 class OverWorldObject:
@@ -9,6 +10,7 @@ class OverWorldObject:
         self.scene = scene
         self.priority = 0
         self.blocking = False
+        self.interactive = False
 
 
 class StaticOverWorldObject(OverWorldObject):
@@ -49,3 +51,40 @@ class Floor(StaticOverWorldObject):
     def __init__(self, scene):
         super().__init__(scene, "floor")
         self.priority = 0
+
+
+class AnimatedOverWorldObject(OverWorldObject):
+    """ Subclass of OverWorldObject with no animations. """
+
+    def __init__(self, scene, sprite):
+        super().__init__(scene)
+        self.sprite = sprite
+
+    def draw(self, surface, x, y):
+        x_offset = c.TILE_WIDTH//2 - self.sprite.get_size()[0]//2
+        y_offset = c.TILE_HEIGHT//2 - self.sprite.get_size()[1]//2
+        self.sprite.set_position((x + x_offset, y + y_offset))
+        self.sprite.draw(surface)
+
+
+class Plot(AnimatedOverWorldObject):
+
+    def __init__(self, scene):
+        dirt_sprite = SpriteSheet(scene.load_image("dirt_tile"), (1, 1), 1)
+        sprouts_sprite = SpriteSheet(scene.load_image("sprout_tile"), (1, 1), 1)
+        grass_sprite = SpriteSheet(scene.load_image("grass_tile"), (1, 1), 1)
+        self.sprite = Sprite(4)
+        self.sprite.add_animation({"dirt": dirt_sprite,
+                                   "sprouts": sprouts_sprite,
+                                   "grass": grass_sprite})
+        self.anims = ["dirt", "sprouts", "grass"]
+        self.sprite.start_animation("dirt")
+        super().__init__(scene, self.sprite)
+
+        self.blocking = True
+        self.interactive = True
+
+    def touch(self):
+        """ Run this when the player tries to interact. """
+        self.anims.append(self.anims.pop(0))
+        self.sprite.start_animation(self.anims[0])

@@ -1,6 +1,6 @@
 import constants as c
 import helpers as h
-from objects.overworld_object import Wall, Floor
+from objects.overworld_object import Wall, Floor, Plot
 
 
 class Map:
@@ -8,7 +8,8 @@ class Map:
     def __init__(self, scene):
         self.scene = scene
         self.mapping = {c.WALL_CHAR: Wall,
-                        c.FLOOR_CHAR: Floor}
+                        c.FLOOR_CHAR: Floor,
+                        c.PLOT_CHAR: Plot}
         self.container = self.generate_layout()
 
     def generate_layout(self):
