@@ -3,7 +3,7 @@ import random
 import helpers as h
 import constants as c
 from objects.overworld_object import OverWorldObject
-from pyracy.sprite_tools import Sprite, SpriteSheet
+from sprite_tools import Sprite, SpriteSheet
 
 
 class Character(OverWorldObject):

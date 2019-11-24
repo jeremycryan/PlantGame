@@ -1,7 +1,7 @@
 import pygame
 
 import constants as c
-from pyracy.sprite_tools import Sprite, SpriteSheet
+from sprite_tools import Sprite, SpriteSheet
 
 
 class OverWorldObject:

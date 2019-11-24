@@ -1,12 +1,7 @@
 import pygame
 
-import time
-
 import constants as c
-import helpers as h
-from objects.overworld_object import OverWorldObject
 from objects.character import Character
-from pyracy.sprite_tools import Sprite, SpriteSheet
 
 
 class Player(Character):
