@@ -11,7 +11,7 @@ ASSETS_PATH = "assets"
 IMAGE_PATH_DICT = {"player_temp": os.path.join(ASSETS_PATH, "player_temp.png"),
                    "wall": os.path.join(ASSETS_PATH, "wall_placeholder.png"),
                    "floor": os.path.join(ASSETS_PATH, "floor_placeholder.png"),
-                   "dirt_tile": os.path.join(ASSETS_PATH, "dirt_placeholder.png"),
+                   "Empty": os.path.join(ASSETS_PATH, "dirt_placeholder.png"),
                    "sprout_tile": os.path.join(ASSETS_PATH, "sprouts_placeholder.png"),
                    "grass_tile": os.path.join(ASSETS_PATH, "grass_placeholder.png"),
                    "player_walk_down": os.path.join(ASSETS_PATH, "captain_walk.png"),
@@ -19,7 +19,11 @@ IMAGE_PATH_DICT = {"player_temp": os.path.join(ASSETS_PATH, "player_temp.png"),
                    "player_idle_down": os.path.join(ASSETS_PATH, "captain_idle_down.png"),
                    "player_idle_up": os.path.join(ASSETS_PATH, "captain_idle_up.png"),
                    "player_walk_right": os.path.join(ASSETS_PATH, "captain_walk_right.png"),
-                   "player_idle_right": os.path.join(ASSETS_PATH, "captain_idle_right.png")}
+                   "player_idle_right": os.path.join(ASSETS_PATH, "captain_idle_right.png"),
+                   "Jute2": os.path.join(ASSETS_PATH, "jute_mature.png"),
+                   "Jute1": os.path.join(ASSETS_PATH, "jute_sprout.png"),
+                   "Moth Orchid2": os.path.join(ASSETS_PATH, "orchid_mature.png"),
+                   "Moth Orchid1": os.path.join(ASSETS_PATH, "orchid_sprout.png")}
 TEXT_PATH_DICT = {"ship_map": os.path.join(ASSETS_PATH, "ship.txt")}
 
 # Colors
@@ -55,3 +59,4 @@ SEED = 0
 SPROUT = 1
 MATURE = 2
 DEAD = 3
+DIRT = 4

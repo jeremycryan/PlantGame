@@ -8,6 +8,7 @@ import pygame
 
 import constants as c
 from scenes.overworld import OverWorld
+from objects.plot import Plot
 
 
 class Game:
@@ -16,10 +17,10 @@ class Game:
 
     def __init__(self):
         pygame.init()
+        self.state = GameState(self)
         self.image_dict = {}
         self.initialize_screen()
         self.active_scene = OverWorld(self)
-
         self.run()
 
     def initialize_screen(self):
@@ -74,5 +75,13 @@ class Game:
                 sys.exit()
 
 
-if __name__=="__main__":
+class GameState:
+
+    def __init__(self, game):
+        self.game = game
+        self.oxygen = 100
+        self.plots = [Plot(game) for _ in range(10)]
+
+
+if __name__ == "__main__":
     Game()
