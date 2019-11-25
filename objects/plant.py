@@ -16,6 +16,7 @@ class Plant:
         self.mature_age = 3
         self.death_age = 7
         self.oxygen_production = 2
+        self.fruit_period = None
 
         self.name = "Plant"
 
@@ -24,7 +25,6 @@ class Plant:
         if self.state == c.MATURE:
             self.game.state.add_oxygen(self.oxygen_production)
         self.state = self.get_state()
-
 
     def set_life_attributes(self, **kwargs):
         if "sprout_age" in kwargs:
@@ -40,6 +40,9 @@ class Plant:
         elif self.age < self.mature_age:
             return c.SPROUT
         elif self.age < self.death_age:
+            if self.fruit_period:
+                if (self.age - self.mature_age) % self.fruit_period == 0:
+                    return c.FRUIT
             return c.MATURE
         else:
             return c.DEAD
@@ -97,6 +100,7 @@ class Strawberry(Plant):
                                  mature_age=3,
                                  death_age=9)
         self.oxygen_production = 1
+        self.fruit_period = 4
 
         self.name = "Strawberry"
 

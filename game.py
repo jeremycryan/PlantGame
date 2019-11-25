@@ -82,6 +82,16 @@ class GameState:
         self.oxygen = 100
         self.plots = [Plot(game) for _ in range(10)]
 
+    def cycle(self):
+        """ Updates all game state objects one cycle. """
+        for plot in self.plots:
+            plot.cycle()
+        self.oxygen -= 5
+        print("A day passes. Oxygen at %s" % self.oxygen)
+
+    def add_oxygen(self, amt):
+        self.oxygen += amt
+
 
 if __name__ == "__main__":
     Game()

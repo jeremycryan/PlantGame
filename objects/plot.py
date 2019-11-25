@@ -10,3 +10,6 @@ class Plot:
     def __init__(self, game):
         self.game = game
         self.plant = Dirt(game)
+
+    def cycle(self):
+        self.plant.cycle()

@@ -22,8 +22,14 @@ IMAGE_PATH_DICT = {"player_temp": os.path.join(ASSETS_PATH, "player_temp.png"),
                    "player_idle_right": os.path.join(ASSETS_PATH, "captain_idle_right.png"),
                    "Jute2": os.path.join(ASSETS_PATH, "jute_mature.png"),
                    "Jute1": os.path.join(ASSETS_PATH, "jute_sprout.png"),
+                   "Seed": os.path.join(ASSETS_PATH, "seed.png"),
                    "Moth Orchid2": os.path.join(ASSETS_PATH, "orchid_mature.png"),
-                   "Moth Orchid1": os.path.join(ASSETS_PATH, "orchid_sprout.png")}
+                   "Moth Orchid1": os.path.join(ASSETS_PATH, "orchid_sprout.png"),
+                   "Boston Fern2": os.path.join(ASSETS_PATH, "boston_fern_mature.png"),
+                   "Boston Fern1": os.path.join(ASSETS_PATH, "boston_fern_sprout.png"),
+                   "Strawberry3": os.path.join(ASSETS_PATH, "strawberry_fruit.png"),
+                   "Strawberry2": os.path.join(ASSETS_PATH, "strawberry_mature.png"),
+                   "Strawberry1": os.path.join(ASSETS_PATH, "strawberry_sprout.png")}
 TEXT_PATH_DICT = {"ship_map": os.path.join(ASSETS_PATH, "ship.txt")}
 
 # Colors
@@ -58,5 +64,6 @@ TILE_SIZE = (TILE_WIDTH, TILE_HEIGHT)
 SEED = 0
 SPROUT = 1
 MATURE = 2
-DEAD = 3
-DIRT = 4
+FRUIT = 3
+DEAD = 4
+DIRT = 5

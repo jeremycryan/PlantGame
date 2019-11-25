@@ -14,7 +14,8 @@ class OverWorld(Scene):
         self.player = Player(self)
         self.characters = [Rando(self, pos=(8, 5))]
         self.camera = Camera()
-        self.objects = [self.player, self.camera] + self.characters
+        self.objects = [self.player, self.camera] + self.characters + self.map.get_plots()
+        print(self.objects)
 
     def draw(self, surface):
         surface.fill((100, 150, 200))

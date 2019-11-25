@@ -80,6 +80,7 @@ class Plot(AnimatedOverWorldObject):
         self.id = scene.get_id("plot")
         self.plant = scene.game.state.plots[self.id].plant
         self.sprite = self.get_sprite_from_plant()
+        self.state = self.plant.state
         super().__init__(scene, self.sprite)
 
         self.blocking = True
@@ -87,15 +88,14 @@ class Plot(AnimatedOverWorldObject):
 
     def touch(self):
         """ Run this when the player tries to interact. """
-        print(self.plant.name)
-        print(self.plant.get_description())
         self.scene.game.state.plots[self.id].plant = random.choice([Jute(self.scene.game),
                                                                     Orchid(self.scene.game),
                                                                     Strawberry(self.scene.game),
                                                                     BostonFern(self.scene.game),
                                                                     Dirt(self.scene.game)])
-        self.scene.game.state.plots[self.id].plant.state = random.choice([c.MATURE, c.SPROUT])
-        self.update(1, None)
+        self.update(0, [])
+        print(self.plant.name)
+        print(self.plant.get_description())
 
     def update(self, dt, events):
         super().update(dt, events)
@@ -104,7 +104,12 @@ class Plot(AnimatedOverWorldObject):
     def get_sprite_from_plant(self):
         plant = self.plant
         sprite = Sprite(4)
-        key = plant.name if plant.name == "Empty" else plant.name + str(plant.state)
+        if plant.name == "Empty":
+            key = plant.name
+        elif plant.state == c.SEED:
+            key = "Seed"
+        else:
+            key = plant.name + str(plant.state)
         sheet = SpriteSheet(self.scene.load_image(key), (1, 1), 1)
         sprite.add_animation({"idle": sheet})
         sprite.start_animation("idle")
@@ -114,3 +119,9 @@ class Plot(AnimatedOverWorldObject):
         if self.plant is not self.scene.game.state.plots[self.id].plant:
             self.plant = self.scene.game.state.plots[self.id].plant
             self.sprite = self.get_sprite_from_plant()
+            self.state = self.plant.state
+
+        if self.state != self.plant.state:
+            self.sprite = self.get_sprite_from_plant()
+            self.state = self.plant.state
+
