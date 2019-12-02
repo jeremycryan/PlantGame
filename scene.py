@@ -13,6 +13,7 @@ class Scene:
         self.game = game
         self.camera = Camera()
         self.image_dict = {}
+        self.id_dict = {}
         self.age = 0
 
     def load_image(self, label):
@@ -40,3 +41,9 @@ class Scene:
         if self.age > 2:
             return Scene
         return None
+
+    def get_id(self, label):
+        """ Counts up for each time the scene has seen a unique label. """
+        result = self.id_dict.get(label, 0)
+        self.id_dict[label] = result + 1
+        return result

@@ -63,3 +63,13 @@ class Map:
     def cell_is_blocking(self, x, y):
         """ Returns True if any item in the cell x, y is blocking. """
         return any([item.blocking for item in self.container[y][x]])
+
+    def get_plots(self):
+        """ Returns a list of all Plot objects in the map. """
+        plots = []
+        for row in self.container:
+            for cell in row:
+                for item in cell:
+                    if type(item) == Plot:
+                        plots.append(item)
+        return plots

@@ -1,7 +1,10 @@
 import pygame
 
+import random
+
 import constants as c
 from sprite_tools import Sprite, SpriteSheet
+from objects.plant import Jute, BostonFern, Orchid, Strawberry, Dirt
 
 
 class OverWorldObject:
@@ -66,19 +69,18 @@ class AnimatedOverWorldObject(OverWorldObject):
         self.sprite.set_position((x + x_offset, y + y_offset))
         self.sprite.draw(surface)
 
+    def update(self, dt, events):
+        self.sprite.update(dt)
+
 
 class Plot(AnimatedOverWorldObject):
 
     def __init__(self, scene):
-        dirt_sprite = SpriteSheet(scene.load_image("dirt_tile"), (1, 1), 1)
-        sprouts_sprite = SpriteSheet(scene.load_image("sprout_tile"), (1, 1), 1)
-        grass_sprite = SpriteSheet(scene.load_image("grass_tile"), (1, 1), 1)
-        self.sprite = Sprite(4)
-        self.sprite.add_animation({"dirt": dirt_sprite,
-                                   "sprouts": sprouts_sprite,
-                                   "grass": grass_sprite})
-        self.anims = ["dirt", "sprouts", "grass"]
-        self.sprite.start_animation("dirt")
+        self.scene = scene
+        self.id = scene.get_id("plot")
+        self.plant = scene.game.state.plots[self.id].plant
+        self.sprite = self.get_sprite_from_plant()
+        self.state = self.plant.state
         super().__init__(scene, self.sprite)
 
         self.blocking = True
@@ -86,5 +88,40 @@ class Plot(AnimatedOverWorldObject):
 
     def touch(self):
         """ Run this when the player tries to interact. """
-        self.anims.append(self.anims.pop(0))
-        self.sprite.start_animation(self.anims[0])
+        self.scene.game.state.plots[self.id].plant = random.choice([Jute(self.scene.game),
+                                                                    Orchid(self.scene.game),
+                                                                    Strawberry(self.scene.game),
+                                                                    BostonFern(self.scene.game),
+                                                                    Dirt(self.scene.game)])
+        self.update(0, [])
+        print(self.plant.name)
+        print(self.plant.get_description())
+
+    def update(self, dt, events):
+        super().update(dt, events)
+        self.update_plant_state()
+
+    def get_sprite_from_plant(self):
+        plant = self.plant
+        sprite = Sprite(4)
+        if plant.name == "Empty":
+            key = plant.name
+        elif plant.state == c.SEED:
+            key = "Seed"
+        else:
+            key = plant.name + str(plant.state)
+        sheet = SpriteSheet(self.scene.load_image(key), (1, 1), 1)
+        sprite.add_animation({"idle": sheet})
+        sprite.start_animation("idle")
+        return sprite
+
+    def update_plant_state(self):
+        if self.plant is not self.scene.game.state.plots[self.id].plant:
+            self.plant = self.scene.game.state.plots[self.id].plant
+            self.sprite = self.get_sprite_from_plant()
+            self.state = self.plant.state
+
+        if self.state != self.plant.state:
+            self.sprite = self.get_sprite_from_plant()
+            self.state = self.plant.state
+

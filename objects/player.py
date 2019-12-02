@@ -34,6 +34,9 @@ class Player(Character):
                         if item.interactive:
                             self.interact(item)
 
+                if event.key == pygame.K_c:
+                    self.scene.game.state.cycle()
+
             # And remove from stack for keyups
             if event.type == pygame.KEYUP:
                 if event.key in self.press_stack:
