@@ -22,6 +22,10 @@ IMAGE_PATH_DICT = {"player_temp": os.path.join(ASSETS_PATH, "player_temp.png"),
                    "player_idle_right": os.path.join(ASSETS_PATH, "captain_idle_right.png")}
 TEXT_PATH_DICT = {"ship_map": os.path.join(ASSETS_PATH, "ship.txt")}
 
+# Dialogue loading
+DIALOGUE_PATH = "dialogue/Emilia"
+DIALOGUE_PATH_DICT = {"emilia_example": os.path.join(DIALOGUE_PATH, "emilia_example.txt")}
+
 # Colors
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)

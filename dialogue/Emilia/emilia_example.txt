@@ -1,0 +1,30 @@
+TAG 1 NPC :
+
+START
+uwu I am text.
+owo I am also text.
+END
+BRANCHES: TAG 2
+----------------------------------------------
+TAG 2 PLAYER :
+
+START
+People who uwu should die
+UWU UWU UWU UWU UWU UWU
+END
+BRANCHES: TAG 3 TAG 4
+______________________________________________
+TAG 3 NPC:
+
+START
+I love Emilia.
+END
+BRANCHES: NONE
+----------------------------------------------
+TAG 4 NPC:
+
+START
+EUUWUUUUUEEEEEEUUUUUUUU
+END
+
+BRANCHES:NONE
