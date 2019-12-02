@@ -35,10 +35,12 @@ class PlayerLine():
 class Dialogue():
     """A Dialogue is a tree of speechBlocks and represents a full dialogue
        interaction between the player and another character"""
-    dialogueList = []
-    currentBlock = None
-    def __init__(self, dialogueTag):
+    def __init__(self, dialogueTag, name):
         """Parse dialogue file and construct dialogue tree based on dialogueTag"""
+        self.dialogueList = []
+        self.currentBlock = None
+        self.name = name
+
         dialogue_path = c.DIALOGUE_PATH_DICT[dialogueTag]
 
         with open(dialogue_path, 'r') as f:
@@ -86,6 +88,7 @@ class Dialogue():
     def startDialogue(self):
         endDialogue = False
         self.currentBlock = self.dialogueList[0]
+
         while not endDialogue:
             yield self.currentBlock
             if self.currentBlock.speechType is 'NPC':
