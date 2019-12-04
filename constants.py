@@ -6,6 +6,29 @@ WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
 WINDOW_SIZE = WINDOW_WIDTH, WINDOW_HEIGHT
 
+# Colors
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+YELLOW = (255, 255, 0)
+CYAN = (0, 255, 255)
+MAGENTA = (255, 0, 255)
+GRAY = (128, 128, 128)
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+COLORS = (RED, GREEN, BLUE, YELLOW, CYAN, MAGENTA, GRAY, WHITE, BLACK)
+
+# Dialogue box settings
+BOX_PADDING = 25
+BOX_MARGIN = 25
+BOX_HEIGHT = WINDOW_HEIGHT//3
+BOX_WIDTH = WINDOW_WIDTH - 2*BOX_MARGIN
+BOX_COLOR = BLACK
+BOX_ALPHA = 130
+BOX_CHARACTER_RATE = 30
+BOX_FONT_SIZE = 20
+BOX_FONT_SPACING = 1.2
+
 # Asset loading
 ASSETS_PATH = "assets"
 IMAGE_PATH_DICT = {"player_temp": os.path.join(ASSETS_PATH, "player_temp.png"),
@@ -31,18 +54,6 @@ IMAGE_PATH_DICT = {"player_temp": os.path.join(ASSETS_PATH, "player_temp.png"),
                    "Strawberry2": os.path.join(ASSETS_PATH, "strawberry_mature.png"),
                    "Strawberry1": os.path.join(ASSETS_PATH, "strawberry_sprout.png")}
 TEXT_PATH_DICT = {"ship_map": os.path.join(ASSETS_PATH, "ship.txt")}
-
-# Colors
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
-YELLOW = (255, 255, 0)
-CYAN = (0, 255, 255)
-MAGENTA = (255, 0, 255)
-GRAY = (128, 128, 128)
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-COLORS = (RED, GREEN, BLUE, YELLOW, CYAN, MAGENTA, GRAY, WHITE, BLACK)
 
 # Directions
 UP = (0, -1)
