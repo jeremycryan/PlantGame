@@ -55,6 +55,10 @@ IMAGE_PATH_DICT = {"player_temp": os.path.join(ASSETS_PATH, "player_temp.png"),
                    "Strawberry1": os.path.join(ASSETS_PATH, "strawberry_sprout.png")}
 TEXT_PATH_DICT = {"ship_map": os.path.join(ASSETS_PATH, "ship.txt")}
 
+# Dialogue loading
+DIALOGUE_PATH = "dialogue/Emilia"
+DIALOGUE_PATH_DICT = {"emilia_example": os.path.join(DIALOGUE_PATH, "emilia_example.txt")}
+
 # Directions
 UP = (0, -1)
 DOWN = (0, 1)

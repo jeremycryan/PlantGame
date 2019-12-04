@@ -4,6 +4,7 @@ import helpers as h
 import constants as c
 from objects.overworld_object import OverWorldObject
 from sprite_tools import Sprite, SpriteSheet
+from objects.dialogue import Dialogue
 
 
 class Character(OverWorldObject):
@@ -12,6 +13,8 @@ class Character(OverWorldObject):
         self.priority = 3
         self.blocking = True
         self.interactive = True
+        self.dialogue = None
+        self.name = None
 
         down = SpriteSheet(scene.load_image("player_walk_down"), (6, 1), 6)
         up = SpriteSheet(scene.load_image("player_walk_up"), (6, 1), 6)
@@ -63,6 +66,9 @@ class Character(OverWorldObject):
 
     def touch(self):
         print("Character")
+
+    def setDialogue(self, dialogueTag):
+        self.dialogue = Dialogue(dialogueTag, self.name)
 
     def update(self, dt, events):
         self.check_events(events)
@@ -136,6 +142,10 @@ class Character(OverWorldObject):
 
 
 class Rando(Character):
+
+    def __init__(self, scene, pos=(3, 3)):
+        super().__init__(scene, pos=pos)
+        self.name = "Emilia"
 
     def update(self, dt, events):
         if not self.in_motion and self.since_move > 2:
