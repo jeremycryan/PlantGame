@@ -9,6 +9,7 @@ import pygame
 import constants as c
 from scenes.overworld import OverWorld
 from objects.plot import Plot
+from objects.plant import Dirt
 
 
 class Game:
@@ -91,6 +92,12 @@ class GameState:
 
     def add_oxygen(self, amt):
         self.oxygen += amt
+
+    def remove_plant(self, plant):
+        """ Removes a plant from any plots it exists in. """
+        for plot in self.plots:
+            if plot.plant == plant:
+                plot.plant = Dirt(self.game)
 
 
 if __name__ == "__main__":
