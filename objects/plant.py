@@ -34,6 +34,11 @@ class Plant:
         if "death_age" in kwargs:
             self.death_age = kwargs["death_age"]
 
+    def prune(self):
+        self.death_age += 0.5
+        if self.fruit_period not None:
+            self.fruit_period -= 1
+
     def get_state(self):
         if self.age < self.sprout_age:
             return c.SEED
@@ -64,6 +69,11 @@ class Jute(Plant):
     def get_description(self):
         return "It's tall and fibrous. Looks tasty."
 
+    def harvest(self):
+        game.state.remove_plant(self)
+        return self.name
+
+
 
 class BostonFern(Plant):
     def __init__(self, game):
@@ -92,6 +102,10 @@ class Orchid(Plant):
     def get_description(self):
         return "It definitely looks like an orchid, but it looks nothing like a moth."
 
+    def harvest(self):
+        game.state.remove_plant(self)
+        return self.name
+
 
 class Strawberry(Plant):
     def __init__(self, game):
@@ -106,6 +120,10 @@ class Strawberry(Plant):
 
     def get_description(self):
         return "One day, it's fruits might be used to sweeten the kale smoothies of suburban hipsters."
+
+    def harvest(self):
+        self.fruit_period = 4
+        return name
 
 
 class Dirt(Plant):
