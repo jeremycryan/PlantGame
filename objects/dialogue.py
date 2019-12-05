@@ -39,6 +39,7 @@ class Dialogue():
         """Parse dialogue file and construct dialogue tree based on dialogueTag"""
         self.dialogueList = []
         self.currentBlock = None
+        self.next_block = 0
         self.name = name
 
         dialogue_path = c.DIALOGUE_PATH_DICT[dialogueTag]
@@ -84,8 +85,10 @@ class Dialogue():
                         # Resets for next block
                         readMode = 0
                         textBlock = []
+    def set_next_block(self, option):
+        self.next_block = option
 
-    def startDialogue(self):
+    def do_dialogue(self):
         endDialogue = False
         self.currentBlock = self.dialogueList[0]
 
@@ -103,8 +106,7 @@ class Dialogue():
                 print("YOU:")
                 print(self.currentBlock.speechText)
                 print()
-                choice = int(input()) - 1
-                self.currentBlock = self.dialogueList[self.currentBlock.nextBlock(choice) - 1]
+                self.currentBlock = self.dialogueList[self.currentBlock.nextBlock(self.next_block) - 1]
 
 
 
