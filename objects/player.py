@@ -17,7 +17,6 @@ class Player(Character):
                              pygame.K_RIGHT: c.RIGHT,
                              None: c.NO_DIRECTION}
         self.interact_key = pygame.K_SPACE
-        self.inventory = []
 
     def check_events(self, events):
         """ Checks events for control inputs. """

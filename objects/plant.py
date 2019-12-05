@@ -1,5 +1,6 @@
 import constants as c
 
+import objects.inventory_object as inv
 from sprite_tools import SpriteSheet
 
 
@@ -36,7 +37,7 @@ class Plant:
 
     def prune(self):
         self.death_age += 0.5
-        if self.fruit_period not None:
+        if self.fruit_period is not None:
             self.fruit_period -= 1
 
     def get_state(self):
@@ -70,8 +71,8 @@ class Jute(Plant):
         return "It's tall and fibrous. Looks tasty."
 
     def harvest(self):
-        game.state.remove_plant(self)
-        return self.name
+        self.game.state.remove_plant(self)
+        return inv.Twine(self.game)
 
 
 
@@ -103,8 +104,8 @@ class Orchid(Plant):
         return "It definitely looks like an orchid, but it looks nothing like a moth."
 
     def harvest(self):
-        game.state.remove_plant(self)
-        return self.name
+        self.game.state.remove_plant(self)
+        return inv.Orchid(self.game)
 
 
 class Strawberry(Plant):
@@ -123,7 +124,7 @@ class Strawberry(Plant):
 
     def harvest(self):
         self.fruit_period = 4
-        return name
+        return inv.Strawberry(self.game)
 
 
 class Dirt(Plant):

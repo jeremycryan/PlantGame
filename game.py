@@ -82,6 +82,10 @@ class GameState:
         self.game = game
         self.oxygen = 100
         self.plots = [Plot(game) for _ in range(10)]
+        self.player_inventory = []
+
+    def add_to_inventory(self, item):
+        self.player_inventory.append(item)
 
     def cycle(self):
         """ Updates all game state objects one cycle. """

@@ -1,6 +1,6 @@
 class InventoryObject:
-    def __init__(self, scene):
-        self.scene = scene
+    def __init__(self, game):
+        self.game = game
         self.name = "Generic Item"
         self.description = "This item exists, but has no use."
         self.givable = False
@@ -16,16 +16,16 @@ class Strawberry(InventoryObject):
 
 
 class Orchid(InventoryObject):
-    def __init__(self, scene):
-        super().__init__(scene)
+    def __init__(self, game):
+        super().__init__(game)
         self.givable = True
         self.name = "Orchid"
         self.description = "Perhaps someone will want to smell this."
 
 
 class Twine(InventoryObject):
-    def __init__(self, scene):
-        super().__init__(scene)
+    def __init__(self, game):
+        super().__init__(game)
         self.givable = True
         self.name = "Twine"
         self.description = "It's long and fibrous. Looks tasty."
