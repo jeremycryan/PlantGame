@@ -3,10 +3,9 @@ import constants as c
 
 class Camera:
 
-    def __init__(self):
+    def __init__(self, pos=(0, 0)):
         self.zoom = 1.0
-        self.x = 0
-        self.y = 0
+        self.x, self.y = pos
         self.target_x = self.x
         self.target_y = self.y
 

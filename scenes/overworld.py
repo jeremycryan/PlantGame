@@ -11,20 +11,26 @@ class OverWorld(Scene):
     def __init__(self, game):
         super().__init__(game)
         self.game = game
+        self.game.state.cycle()
         self.map = Map(self)
-        self.player = Player(self)
+        self.player = Player(self, pos=self.game.state.last_player_position)
         self.characters = [Rando(self, pos=(8, 5))]
-        self.camera = Camera()
+        self.camera = Camera(pos=self.game.state.last_player_position)
         self.dialogue_box = DialogueBox(self)
         self.objects = [self.player, self.camera] + self.characters + self.map.get_plots()
+        self.next_scene = None
 
     def draw(self, surface):
         surface.fill((100, 150, 200))
         self.map.draw()
         self.dialogue_box.draw()
 
+    def next_day(self):
+        self.next_scene = OverWorld
+        self.game.state.last_player_position = self.player.x, self.player.y
+
     def get_next_scene(self):
-        return None
+        return self.next_scene
 
     def update(self, dt, events):
         super().update(dt, events)

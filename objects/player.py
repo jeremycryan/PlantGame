@@ -6,8 +6,8 @@ from objects.character import Character
 
 class Player(Character):
 
-    def __init__(self, scene):
-        super().__init__(scene)
+    def __init__(self, scene, pos=(3, 3)):
+        super().__init__(scene, pos=pos)
         self.priority = 3
 
         self.press_stack = [None]  # Stack of keyboard commands, with most recent press last
@@ -35,7 +35,7 @@ class Player(Character):
                             self.interact(item)
 
                 if event.key == pygame.K_c:
-                    self.scene.game.state.cycle()
+                    self.scene.next_day()
 
             # And remove from stack for keyups
             if event.type == pygame.KEYUP:
@@ -46,4 +46,6 @@ class Player(Character):
         other.touch()
 
     def direction(self):
+        if not self.scene.game.enable_player_movement:
+            return c.NO_DIRECTION
         return self.control_dict[self.press_stack[-1]]

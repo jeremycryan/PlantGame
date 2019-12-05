@@ -54,8 +54,8 @@ class Character(OverWorldObject):
 
         self.in_motion = False
         self.next_direction = c.NO_DIRECTION
-        self.face_direction = c.RIGHT
-        self.last_face_direction = c.RIGHT
+        self.face_direction = c.DOWN
+        self.last_face_direction = c.DOWN
         self.since_arrive = 999
 
     def draw(self, surface):
