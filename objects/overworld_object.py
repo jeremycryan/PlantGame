@@ -73,6 +73,17 @@ class AnimatedOverWorldObject(OverWorldObject):
         self.sprite.update(dt)
 
 
+class Bed(Wall):
+    def __init__(self, scene):
+        super().__init__(scene)
+        self.priority = 1
+        self.blocking = True
+        self.interactive = True
+
+    def touch(self):
+        self.scene.next_day()
+
+
 class Plot(AnimatedOverWorldObject):
 
     def __init__(self, scene):
