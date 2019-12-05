@@ -52,7 +52,7 @@ class Game:
 
             # Calculate time step and get events
             now = time.time()
-            dt = now - then
+            dt = min(now - then, c.MIN_TIME_STEP)  # If too much time has passed, lag the game
             then = now
             events = pygame.event.get()
 
