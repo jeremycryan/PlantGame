@@ -86,6 +86,7 @@ class Dialogue():
                         readMode = 0
                         textBlock = []
     def set_next_block(self, option):
+        print("test")
         self.next_block = option
 
     def do_dialogue(self):
@@ -106,7 +107,7 @@ class Dialogue():
                 print("YOU:")
                 print(self.currentBlock.speechText)
                 print()
-                self.currentBlock = self.dialogueList[self.currentBlock.nextBlock(self.next_block) - 1]
+                self.currentBlock = self.dialogueList[self.currentBlock.nextBlock(self.next_block-1) - 1]
 
 
 

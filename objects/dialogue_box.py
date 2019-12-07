@@ -2,6 +2,7 @@ import pygame
 import string
 
 import constants as c
+import copy
 from objects.dialogue import Dialogue
 
 
@@ -61,10 +62,11 @@ class DialogueBox:
                 if cx + word_width > c.WINDOW_WIDTH - c.BOX_PADDING - c.BOX_MARGIN or char is "\n":
                     cx = x + c.BOX_PADDING
                     cy += line_spacing
-                char_surf = self.character_dict[char]
-                self.scene.game.screen.blit(char_surf, (cx, cy))
-                cx += char_surf.get_width()
-                word_width -= char_surf.get_width()
+                if char is not "\n":
+                    char_surf = self.character_dict[char]
+                    self.scene.game.screen.blit(char_surf, (cx, cy))
+                    cx += char_surf.get_width()
+                    word_width -= char_surf.get_width()
                 chars_displayed += 1
                 if chars_displayed >= chars_to_display:
                     break
@@ -90,9 +92,7 @@ class DialogueBox:
                     self.current_selection -= 1
                 if event.key == pygame.K_SPACE:
                     if self.text_is_done_drawing():
-                        if self.player_mode:
-                            self.dialogue.set_next_block(self.current_selection)
-                            self.text_queue = []
+                        print(self.player_mode)
                         self.next_frame()
 
     def text_is_done_drawing(self):
@@ -102,8 +102,8 @@ class DialogueBox:
         return chars_displayed > len(self.text_queue[0])
 
     def set_speech_block(self, speech_block):
-        self.text_queue = speech_block.speechText
-        if speech_block.speechType is 'NPC':
+        self.text_queue = copy.copy(speech_block.speechText)
+        if speech_block.speechType == 'NPC':
             self.player_mode = False
         else:
             self.player_mode = True
@@ -117,8 +117,16 @@ class DialogueBox:
         """ Goes to the next frame of speech. """
         self.frame_age = 0
         if self.text_queue:
-            self.text_queue.pop(0)
+            if self.player_mode:
+                self.text_queue = []
+            else:
+                self.text_queue.pop(0)
             if not self.text_queue:
+                if self.player_mode:
+                    self.dialogue.set_next_block(self.current_selection)
+                else:
+                    self.dialogue.set_next_block(1)
+                print("test")
                 try:
                     speech_block = self.dialogue_iter.__next__()
                     self.set_speech_block(speech_block)
