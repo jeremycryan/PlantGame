@@ -24,7 +24,6 @@ class DialogueBox:
         self.frame_age = 0  # Time since the last text frame has been displayed
         self.font = pygame.font.SysFont("monospace", c.BOX_FONT_SIZE, bold=True)
         self.character_dict = {}
-        self.set_dialogue(Dialogue("emilia_example", "Emilia"))
         for item in string.printable:
             self.character_dict[item] = self.font.render(item, 1, c.WHITE)
 
@@ -33,6 +32,9 @@ class DialogueBox:
 
     def show(self):
         self.hidden = False
+
+    def load_dialogue(self, tag, name):
+        self.set_dialogue(Dialogue(tag, name))
 
     def draw(self):
         """ Draws the dialogue box on the screen. """
