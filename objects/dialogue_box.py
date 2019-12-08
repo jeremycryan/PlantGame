@@ -11,7 +11,7 @@ class DialogueBox:
     def __init__(self, scene):
 
         self.scene = scene
-        self.player_mode = False
+        self.dialogue_type = None
         self.current_selection = 1
 
         self.backdrop = pygame.Surface((c.BOX_WIDTH, c.BOX_HEIGHT))
@@ -34,7 +34,9 @@ class DialogueBox:
         self.hidden = False
 
     def load_dialogue(self, tag, name):
-        self.set_dialogue(Dialogue(tag, name))
+        newDialogue = Dialogue()
+        newDialogue.create_character_dialogue(tag,name)
+        self.set_dialogue(newDialogue)
 
     def draw(self):
         """ Draws the dialogue box on the screen. """
@@ -54,7 +56,7 @@ class DialogueBox:
         selector_x, selector_y = cx - self.character_dict[">"].get_width(), cy
         line_spacing = int(c.BOX_FONT_SIZE * c.BOX_FONT_SPACING)
         string_to_print = self.text_queue[0]
-        if self.player_mode:
+        if self.dialogue_type is not 'NPC':
             string_to_print = "\n".join(self.text_queue)
         chars_to_display = int(self.frame_age * c.BOX_CHARACTER_RATE)
         chars_displayed = 0
@@ -77,7 +79,7 @@ class DialogueBox:
             cx += self.character_dict[" "].get_width()
 
         selector_y += int((self.current_selection - 1) * c.BOX_FONT_SPACING * c.BOX_FONT_SIZE)
-        if self.player_mode:
+        if self.dialogue_type is not 'NPC':
             self.scene.game.screen.blit(self.character_dict[">"], (selector_x, selector_y))
 
     def update(self, dt, events):
@@ -94,7 +96,6 @@ class DialogueBox:
                     self.current_selection -= 1
                 if event.key == pygame.K_SPACE:
                     if self.text_is_done_drawing():
-                        print(self.player_mode)
                         self.next_frame()
 
     def text_is_done_drawing(self):
@@ -105,10 +106,7 @@ class DialogueBox:
 
     def set_speech_block(self, speech_block):
         self.text_queue = copy.copy(speech_block.speechText)
-        if speech_block.speechType == 'NPC':
-            self.player_mode = False
-        else:
-            self.player_mode = True
+        self.dialogue_type = speech_block.speechType
 
     def set_dialogue(self, newDialogue):
         self.dialogue = newDialogue
@@ -119,18 +117,19 @@ class DialogueBox:
         """ Goes to the next frame of speech. """
         self.frame_age = 0
         if self.text_queue:
-            if self.player_mode:
+            if self.dialogue_type is 'PLAYER':
                 self.text_queue = []
             else:
                 self.text_queue.pop(0)
             if not self.text_queue:
-                if self.player_mode:
-                    self.dialogue.set_next_block(self.current_selection)
-                else:
+                if self.dialogue_type is 'NPC':
                     self.dialogue.set_next_block(1)
+                else:
+                    self.dialogue.set_next_block(self.current_selection)
                 print("test")
                 try:
                     speech_block = self.dialogue_iter.__next__()
                     self.set_speech_block(speech_block)
                 except StopIteration:
+                    self.current_selection = 1
                     self.hide()

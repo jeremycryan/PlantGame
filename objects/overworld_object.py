@@ -99,7 +99,7 @@ class Plot(AnimatedOverWorldObject):
 
     def touch(self):
         """ Run this when the player tries to interact. """
-        self.scene.dialogue_box.load_plant()
+        self.scene.dialogue_box.create_plant_dialogue()
         if self.plant.state is c.DIRT:
             self.scene.game.state.plots[self.id].plant = random.choice([Jute(self.scene.game),
                                                                     Orchid(self.scene.game),
