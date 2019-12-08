@@ -10,7 +10,7 @@ import constants as c
 from scenes.overworld import OverWorld
 from objects.plot import Plot
 from objects.plant import Dirt
-from import objects.inventory_object as inv
+import objects.inventory_object as inv
 
 
 class Game:

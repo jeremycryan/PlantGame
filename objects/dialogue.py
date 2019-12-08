@@ -89,7 +89,7 @@ class Dialogue():
                         textBlock = []
 
     def create_plant_dialogue(self, growth_stage):
-        if growth_stage is 'DIRT'
+        if growth_stage is 'DIRT':
             pass
 
     def set_next_block(self, option):
