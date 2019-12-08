@@ -17,6 +17,7 @@ class OverWorld(Scene):
         self.characters = [Rando(self, pos=(8, 5))]
         self.camera = Camera(pos=self.game.state.last_player_position)
         self.dialogue_box = DialogueBox(self)
+        self.dialogue_box.hide()
         self.objects = [self.player, self.camera] + self.characters + self.map.get_plots()
         self.next_scene = None
 

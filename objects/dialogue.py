@@ -35,11 +35,13 @@ class PlayerLine():
 class Dialogue():
     """A Dialogue is a tree of speechBlocks and represents a full dialogue
        interaction between the player and another character"""
-    def __init__(self, dialogueTag, name):
+    def __init__(self):
         """Parse dialogue file and construct dialogue tree based on dialogueTag"""
         self.dialogueList = []
         self.currentBlock = None
         self.next_block = 0
+
+    def create_character_dialogue(self, dialogueTag, name):
         self.name = name
 
         dialogue_path = c.DIALOGUE_PATH_DICT[dialogueTag]
@@ -85,6 +87,11 @@ class Dialogue():
                         # Resets for next block
                         readMode = 0
                         textBlock = []
+
+    def create_plant_dialogue(self, growth_stage):
+        if growth_stage is 'DIRT'
+            pass
+
     def set_next_block(self, option):
         print("test")
         self.next_block = option

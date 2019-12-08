@@ -65,7 +65,7 @@ class Character(OverWorldObject):
         self.sprite.draw(surface)
 
     def touch(self):
-        print("Character")
+        pass
 
     def setDialogue(self, dialogueTag):
         self.dialogue = Dialogue(dialogueTag, self.name)
@@ -151,6 +151,10 @@ class Rando(Character):
         if not self.in_motion and self.since_move > 2:
             self.move(random.choice(c.DIRECTIONS))
         super().update(dt, events)
+
+    def touch(self):
+        self.scene.dialogue_box.load_dialogue("emilia_example", self.name)
+        self.scene.dialogue_box.show()
 
 
 class CharacterShadow(OverWorldObject):
