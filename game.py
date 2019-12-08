@@ -10,6 +10,7 @@ import constants as c
 from scenes.overworld import OverWorld
 from objects.plot import Plot
 from objects.plant import Dirt
+from import objects.inventory_object as inv
 
 
 class Game:
@@ -105,7 +106,10 @@ class GameState:
         self.game = game
         self.oxygen = 100
         self.plots = [Plot(game) for _ in range(10)]
-        self.player_inventory = []
+        self.player_inventory = [inv.StrawberrySeeds(self.game),
+                                 inv.BostonFernSeeds(self.game),
+                                 inv.OrchidSeeds(self.game),
+                                 inv.JuteSeeds(self.game)]
         self.last_player_position = (3, 3)
 
     def add_to_inventory(self, item):
