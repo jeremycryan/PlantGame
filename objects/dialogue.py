@@ -1,5 +1,4 @@
 import constants as c
-from re import search
 
 class speechBlock():
     """A speechBlock object represents a block of speech for a

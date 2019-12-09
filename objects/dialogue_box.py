@@ -11,6 +11,7 @@ class DialogueBox:
     def __init__(self, scene):
 
         self.scene = scene
+        self.box_type = None
         self.dialogue_type = None
         self.current_selection = 1
 
@@ -34,9 +35,15 @@ class DialogueBox:
         self.hidden = False
 
     def load_dialogue(self, tag, name):
+        self.box_type = 'Dialogue'
         newDialogue = Dialogue()
         newDialogue.create_character_dialogue(tag,name)
         self.set_dialogue(newDialogue)
+
+    def load_plant_menu(self, growth_stage, plant_type):
+        self.box_type = 'Menu'
+        self.dialogue_type = None
+        menu = plant_menu(self.scene, growth_stage, plant_type)
 
     def draw(self):
         """ Draws the dialogue box on the screen. """
@@ -56,17 +63,17 @@ class DialogueBox:
         selector_x, selector_y = cx - self.character_dict[">"].get_width(), cy
         line_spacing = int(c.BOX_FONT_SIZE * c.BOX_FONT_SPACING)
         string_to_print = self.text_queue[0]
-        if self.dialogue_type is not 'NPC':
+        if self.dialogue_type != 'NPC':
             string_to_print = "\n".join(self.text_queue)
         chars_to_display = int(self.frame_age * c.BOX_CHARACTER_RATE)
         chars_displayed = 0
         for word in string_to_print.split(" "):
             word_width = sum([self.character_dict[char].get_width() for char in word])
             for char in word:
-                if cx + word_width > c.WINDOW_WIDTH - c.BOX_PADDING - c.BOX_MARGIN or char is "\n":
+                if cx + word_width > c.WINDOW_WIDTH - c.BOX_PADDING - c.BOX_MARGIN or char == "\n":
                     cx = x + c.BOX_PADDING
                     cy += line_spacing
-                if char is not "\n":
+                if char != "\n":
                     char_surf = self.character_dict[char]
                     self.scene.game.screen.blit(char_surf, (cx, cy))
                     cx += char_surf.get_width()
@@ -79,7 +86,7 @@ class DialogueBox:
             cx += self.character_dict[" "].get_width()
 
         selector_y += int((self.current_selection - 1) * c.BOX_FONT_SPACING * c.BOX_FONT_SIZE)
-        if self.dialogue_type is not 'NPC':
+        if (self.dialogue_type == 'PLAYER') or (self.box_type == 'MENU'):
             self.scene.game.screen.blit(self.character_dict[">"], (selector_x, selector_y))
 
     def update(self, dt, events):
@@ -117,19 +124,21 @@ class DialogueBox:
         """ Goes to the next frame of speech. """
         self.frame_age = 0
         if self.text_queue:
-            if self.dialogue_type is 'PLAYER':
-                self.text_queue = []
-            else:
-                self.text_queue.pop(0)
-            if not self.text_queue:
-                if self.dialogue_type is 'NPC':
-                    self.dialogue.set_next_block(1)
+            if self.box_type == 'Dialogue':
+                if self.dialogue_type == 'PLAYER':
+                    self.text_queue = []
                 else:
-                    self.dialogue.set_next_block(self.current_selection)
-                print("test")
-                try:
-                    speech_block = self.dialogue_iter.__next__()
-                    self.set_speech_block(speech_block)
-                except StopIteration:
-                    self.current_selection = 1
-                    self.hide()
+                    self.text_queue.pop(0)
+                if not self.text_queue:
+                    if self.dialogue_type == 'NPC':
+                        self.dialogue.set_next_block(1)
+                    else:
+                        self.dialogue.set_next_block(self.current_selection)
+                    try:
+                        speech_block = self.dialogue_iter.__next__()
+                        self.set_speech_block(speech_block)
+                    except StopIteration:
+                        self.current_selection = 1
+                        self.hide()
+            elif self.box_type == 'Menu':
+                pass
