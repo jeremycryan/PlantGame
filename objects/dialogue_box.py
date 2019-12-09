@@ -4,6 +4,7 @@ import string
 import constants as c
 import copy
 from objects.dialogue import Dialogue
+from objects.menu import plant_menu
 
 
 class DialogueBox:
@@ -42,11 +43,13 @@ class DialogueBox:
         newDialogue.create_character_dialogue(tag,name)
         self.set_dialogue(newDialogue)
 
-    def load_plant_menu(self, growth_stage, plant_type):
-        self.box_type = 'Menu'
+    def load_plant_menu(self, growth_stage, plant, plot):
+        self.plot = plot
+        self.box_type = 'MENU'
         self.dialogue_type = None
-        menu = plant_menu(self.scene, growth_stage, plant_type)
-        self.test_queue = menu.text
+        self.show()
+        menu = plant_menu(self.scene, growth_stage, plant, plot)
+        self.text_queue = menu.text
 
     def draw(self):
         """ Draws the dialogue box on the screen. """
@@ -54,9 +57,12 @@ class DialogueBox:
         if self.hidden:
             return
 
-        x = c.BOX_MARGIN
-        y = c.WINDOW_HEIGHT - c.BOX_HEIGHT - c.BOX_MARGIN
+        x = c.BOX_LEFT_MARGIN
+        y = c.WINDOW_HEIGHT - c.BOX_HEIGHT - c.BOX_LEFT_MARGIN
         self.scene.game.screen.blit(self.backdrop, (x, y))
+
+        if self.box_type == 'Dialogue':
+            self.scene.game.screen.blit(pygame.transform.scale(self.scene.load_image("captain_portrait"),(500,763)),(c.WINDOW_WIDTH - c.BOX_LEFT_MARGIN - 600,c.WINDOW_HEIGHT - c.BOX_HEIGHT - 700))
 
         if not self.text_queue:
             return
@@ -73,7 +79,7 @@ class DialogueBox:
         for word in string_to_print.split(" "):
             word_width = sum([self.character_dict[char].get_width() for char in word])
             for char in word:
-                if cx + word_width > c.WINDOW_WIDTH - c.BOX_PADDING - c.BOX_MARGIN or char == "\n":
+                if cx + word_width > c.WINDOW_WIDTH - c.BOX_PADDING - c.BOX_RIGHT_MARGIN or char == "\n":
                     cx = x + c.BOX_PADDING
                     cy += line_spacing
                 if char != "\n":
@@ -126,7 +132,6 @@ class DialogueBox:
     def next_frame(self):
         """ Goes to the next frame of speech. """
         self.frame_age = 0
-        self.current_selection = 1
         if self.text_queue:
             if self.box_type == 'Dialogue':
                 if self.dialogue_type == 'PLAYER':
@@ -144,5 +149,16 @@ class DialogueBox:
                     except StopIteration:
                         self.current_selection = 1
                         self.hide()
-            elif self.box_type == 'Menu':
-                pass
+            elif self.box_type == 'MENU':
+                choice = copy.copy(self.text_queue[self.current_selection-1])
+                self.text_queue = []
+                if choice == 'Plant Seed':
+                    self.plot.plant_seed()
+                elif choice == 'Remove Seed' or choice == 'Remove Plant':
+                    self.plot.remove_seed()
+                elif choice == 'Prune':
+                    self.plot.plant.prune()
+                elif choice == 'Harvest Fruit' or choice == 'Harvest':
+                    self.plot.plant.harvest()
+                self.current_selection = 1
+                self.hide()

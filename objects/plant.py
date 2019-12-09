@@ -36,6 +36,7 @@ class Plant:
             self.death_age = kwargs["death_age"]
 
     def prune(self):
+        print("pruned")
         self.death_age += 0.5
         if self.fruit_period is not None:
             self.fruit_period -= 1

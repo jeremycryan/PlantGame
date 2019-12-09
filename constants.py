@@ -2,8 +2,8 @@ import os
 
 #  Screen settings
 WINDOW_CAPTION = "Plant Simulator 2000"
-WINDOW_WIDTH = 800
-WINDOW_HEIGHT = 600
+WINDOW_WIDTH = 1600
+WINDOW_HEIGHT = 900
 WINDOW_SIZE = WINDOW_WIDTH, WINDOW_HEIGHT
 MIN_TIME_STEP = 0.05
 
@@ -27,9 +27,10 @@ COLORS = (RED, GREEN, BLUE, YELLOW, CYAN, MAGENTA, GRAY, WHITE, BLACK)
 
 # Dialogue box settings
 BOX_PADDING = 25
-BOX_MARGIN = 25
-BOX_HEIGHT = WINDOW_HEIGHT//3
-BOX_WIDTH = WINDOW_WIDTH - 2*BOX_MARGIN
+BOX_RIGHT_MARGIN = 100
+BOX_LEFT_MARGIN = 25
+BOX_HEIGHT = WINDOW_HEIGHT/4.5
+BOX_WIDTH = WINDOW_WIDTH - BOX_RIGHT_MARGIN - BOX_LEFT_MARGIN
 BOX_COLOR = BLACK
 BOX_ALPHA = 130
 BOX_CHARACTER_RATE = 40
@@ -56,6 +57,7 @@ IMAGE_PATH_DICT = {"player_temp": os.path.join(ASSETS_PATH, "player_temp.png"),
                    "captain_walk_down": os.path.join(ASSETS_PATH, "captain_walk.png"),
                    "captain_walk_right": os.path.join(ASSETS_PATH, "captain_walk_right.png"),
                    "captain_walk_up": os.path.join(ASSETS_PATH, "captain_walk_up.png"),
+                   "captain_portrait": os.path.join(ASSETS_PATH, "captain_portrait.png"),
                    "Jute2": os.path.join(ASSETS_PATH, "jute_mature.png"),
                    "Jute1": os.path.join(ASSETS_PATH, "jute_sprout.png"),
                    "Seed": os.path.join(ASSETS_PATH, "seed.png"),

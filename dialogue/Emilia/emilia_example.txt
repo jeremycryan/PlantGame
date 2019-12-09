@@ -1,30 +1,40 @@
 TAG 1 NPC :
 
 START
-uwu I am text.
-owo I am also text.
+Hi there, my name is Emilia. I am the captain of this ship.
+Feel free to wander around and explore, I hope the trip goes well.
 END
 BRANCHES: TAG 2
 ----------------------------------------------
 TAG 2 PLAYER :
 
 START
-People who uwu should die
-UWU UWU UWU UWU UWU UWU
+I am the new botanist, Carl, nice to meet you.
+Nice to meet you. Where is the botany lab?
+Where is everybody else?
+Okay
 END
-BRANCHES: TAG 3 TAG 4
+BRANCHES: TAG 3 TAG 3 Tag 4 Tag 5
 ______________________________________________
 TAG 3 NPC:
 
 START
-I love Emilia.
+Well Carl, it's a pleasure meeting you.
+You will find the botany lab to the right, it's been prepared the way you requested.
 END
 BRANCHES: NONE
 ----------------------------------------------
 TAG 4 NPC:
 
 START
-EUUWUUUUUEEEEEEUUUUUUUU
+Who knows, maybe they are in the other rooms.
 END
 
+BRANCHES:NONE
+____________________________________________
+TAG 5 NPC:
+
+START
+.....
+END
 BRANCHES:NONE
