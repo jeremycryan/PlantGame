@@ -7,6 +7,7 @@ from objects.character import Character
 class Player(Character):
 
     def __init__(self, scene, pos=(3, 3)):
+        self.name = "Player"
         super().__init__(scene, pos=pos)
         self.priority = 3
 
