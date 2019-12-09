@@ -58,9 +58,11 @@ class DialogueBox:
         self.menu_type = 'CHARACTER'
         self.tag = tag
         self.name = name
+        self.dialogue_type = None
         menu = character_menu(self.scene)
         self.text_queue = menu.text
         self.show()
+
     def draw(self):
         """ Draws the dialogue box on the screen. """
 
@@ -84,6 +86,7 @@ class DialogueBox:
         string_to_print = self.text_queue[0]
         if self.dialogue_type != 'NPC':
             string_to_print = "\n".join(self.text_queue)
+            print("agnioerpng " + string_to_print)
             self.frame_age = 999
         chars_to_display = int(self.frame_age * c.BOX_CHARACTER_RATE)
         chars_displayed = 0
@@ -152,14 +155,13 @@ class DialogueBox:
                 if not self.text_queue:
                     if self.dialogue_type == 'NPC':
                         self.dialogue.set_next_block(1)
-                    else:
-                        self.dialogue.set_next_block(self.current_selection)
+                    else: self.dialogue.set_next_block(self.current_selection)
                     try:
                         speech_block = self.dialogue_iter.__next__()
                         self.set_speech_block(speech_block)
                     except StopIteration:
-                        self.current_selection = 1
                         self.hide()
+                    self.current_selection = 1
             elif self.box_type == 'MENU':
                 choice = copy.copy(self.text_queue[self.current_selection-1])
                 self.text_queue = []
@@ -177,7 +179,6 @@ class DialogueBox:
                     self.hide()
                 elif self.menu_type == 'CHARACTER':
                     if choice == 'Talk':
-                        print("test")
                         self.load_dialogue(self.tag,self.name)
                     elif choice == 'Give Gift':
                         self.hide()
