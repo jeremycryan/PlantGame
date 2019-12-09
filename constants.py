@@ -67,7 +67,8 @@ IMAGE_PATH_DICT = {"player_temp": os.path.join(ASSETS_PATH, "player_temp.png"),
                    "Boston Fern1": os.path.join(ASSETS_PATH, "boston_fern_sprout.png"),
                    "Strawberry3": os.path.join(ASSETS_PATH, "strawberry_fruit.png"),
                    "Strawberry2": os.path.join(ASSETS_PATH, "strawberry_mature.png"),
-                   "Strawberry1": os.path.join(ASSETS_PATH, "strawberry_sprout.png")}
+                   "Strawberry1": os.path.join(ASSETS_PATH, "strawberry_sprout.png"),
+                   "Bed": os.path.join(ASSETS_PATH, "bed.png")}
 TEXT_PATH_DICT = {"ship_map": os.path.join(ASSETS_PATH, "ship.txt")}
 
 # Dialogue loading

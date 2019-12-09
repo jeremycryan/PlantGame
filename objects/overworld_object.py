@@ -73,9 +73,9 @@ class AnimatedOverWorldObject(OverWorldObject):
         self.sprite.update(dt)
 
 
-class Bed(Wall):
+class Bed(StaticOverWorldObject):
     def __init__(self, scene):
-        super().__init__(scene)
+        super().__init__(scene, "Bed")
         self.priority = 1
         self.blocking = True
         self.interactive = True
