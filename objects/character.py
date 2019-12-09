@@ -169,13 +169,27 @@ class Rando(Character):
         super().__init__(scene, pos=pos)
 
     def update(self, dt, events):
-        if not self.in_motion and self.since_move > 2:
+        if not self.in_motion and self.since_move > 3 and self.scene.dialogue_box.hidden:
             self.move(random.choice(c.DIRECTIONS))
         super().update(dt, events)
 
     def touch(self):
         self.scene.dialogue_box.load_dialogue("emilia_example", self.name)
         self.scene.dialogue_box.show()
+
+        if self.scene.player.x < self.x:
+            self.face_direction = c.LEFT
+            self.sprite.start_animation("left_idle")
+        elif self.scene.player.x > self.x:
+            self.face_direction = c.RIGHT
+            self.sprite.start_animation("right_idle")
+        elif self.scene.player.y < self.y:
+            self.face_direction = c.UP
+            self.sprite.start_animation("up_idle")
+        elif self.scene.player.y > self.y:
+            self.face_direction = c.DOWN
+            self.sprite.start_animation("down_idle")
+        self.last_face_direction = self.face_direction
 
 
 class CharacterShadow(OverWorldObject):
