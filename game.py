@@ -110,7 +110,7 @@ class GameState:
                                  inv.BostonFernSeeds(self.game),
                                  inv.OrchidSeeds(self.game),
                                  inv.JuteSeeds(self.game)]
-        self.last_player_position = (3, 3)
+        self.last_player_position = (3, 15)
 
     def add_to_inventory(self, item):
         self.player_inventory.append(item)

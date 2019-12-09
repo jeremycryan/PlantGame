@@ -15,6 +15,6 @@ def approach(a, b, max_step):
     # Otherwise, move in the closer direction at a max speed of rate
     diff = b - a
     if diff < 0:
-        return a - max(max_step, diff)
+        return a - min(max_step, abs(diff))
     else:
         return a + min(max_step, diff)
