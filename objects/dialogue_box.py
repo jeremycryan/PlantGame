@@ -178,7 +178,7 @@ class DialogueBox:
                     if choice == 'Talk':
                         print("test")
                         self.load_dialogue(self.tag,self.name)
-                    elif choice == 'Give':
+                    elif choice == 'Give Gift':
                         self.hide()
                     elif choice == 'Quit':
                         self.hide()

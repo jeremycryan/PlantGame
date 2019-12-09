@@ -8,7 +8,7 @@ class menu():
 class character_menu(menu):
     def __init__(self, scene):
         super().__init__(scene)
-        self.text = ['Talk', 'Give', 'Quit']
+        self.text = ['Talk', 'Give Gift', 'Quit']
 
 class plant_menu(menu):
     def __init__(self, scene, growth_stage, plant_type, plot):
