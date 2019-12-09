@@ -46,6 +46,7 @@ class DialogueBox:
         self.box_type = 'Menu'
         self.dialogue_type = None
         menu = plant_menu(self.scene, growth_stage, plant_type)
+        self.test_queue = menu.text
 
     def draw(self):
         """ Draws the dialogue box on the screen. """
@@ -99,13 +100,13 @@ class DialogueBox:
 
         for event in events:
             if event.type == pygame.KEYDOWN:
-                if (event.key == pygame.K_DOWN) and (self.current_selection < len(self.text_queue)):
-                    self.current_selection += 1
-                if (event.key == pygame.K_UP) and (self.current_selection > 1):
-                    self.current_selection -= 1
-                if event.key == pygame.K_SPACE:
-                    if self.text_is_done_drawing():
-                        self.next_frame()
+                if self.text_is_done_drawing():
+                    if (event.key == pygame.K_DOWN) and (self.current_selection < len(self.text_queue)):
+                        self.current_selection += 1
+                    if (event.key == pygame.K_UP) and (self.current_selection > 1):
+                        self.current_selection -= 1
+                    if event.key == pygame.K_SPACE:
+                            self.next_frame()
 
     def text_is_done_drawing(self):
         if not self.text_queue:
@@ -125,6 +126,7 @@ class DialogueBox:
     def next_frame(self):
         """ Goes to the next frame of speech. """
         self.frame_age = 0
+        self.current_selection = 1
         if self.text_queue:
             if self.box_type == 'Dialogue':
                 if self.dialogue_type == 'PLAYER':
