@@ -29,9 +29,11 @@ class DialogueBox:
             self.character_dict[item] = self.font.render(item, 1, c.WHITE)
 
     def hide(self):
+        self.scene.game.enable_player_movement = True
         self.hidden = True
 
     def show(self):
+        self.scene.game.enable_player_movement = False
         self.hidden = False
 
     def load_dialogue(self, tag, name):

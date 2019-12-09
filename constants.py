@@ -32,7 +32,7 @@ BOX_HEIGHT = WINDOW_HEIGHT//3
 BOX_WIDTH = WINDOW_WIDTH - 2*BOX_MARGIN
 BOX_COLOR = BLACK
 BOX_ALPHA = 130
-BOX_CHARACTER_RATE = 30
+BOX_CHARACTER_RATE = 40
 BOX_FONT_SIZE = 20
 BOX_FONT_SPACING = 1.2
 
@@ -44,12 +44,18 @@ IMAGE_PATH_DICT = {"player_temp": os.path.join(ASSETS_PATH, "player_temp.png"),
                    "Empty": os.path.join(ASSETS_PATH, "dirt_placeholder.png"),
                    "sprout_tile": os.path.join(ASSETS_PATH, "sprouts_placeholder.png"),
                    "grass_tile": os.path.join(ASSETS_PATH, "grass_placeholder.png"),
-                   "player_walk_down": os.path.join(ASSETS_PATH, "captain_walk.png"),
-                   "player_walk_up": os.path.join(ASSETS_PATH, "captain_walk_up.png"),
-                   "player_idle_down": os.path.join(ASSETS_PATH, "captain_idle_down.png"),
-                   "player_idle_up": os.path.join(ASSETS_PATH, "captain_idle_up.png"),
-                   "player_walk_right": os.path.join(ASSETS_PATH, "captain_walk_right.png"),
-                   "player_idle_right": os.path.join(ASSETS_PATH, "captain_idle_right.png"),
+                   "player_walk_down": os.path.join(ASSETS_PATH, "player_walk_down.png"),
+                   "player_walk_up": os.path.join(ASSETS_PATH, "player_walk_up.png"),
+                   "player_idle_down": os.path.join(ASSETS_PATH, "player_idle_down.png"),
+                   "player_idle_up": os.path.join(ASSETS_PATH, "player_idle_up.png"),
+                   "player_walk_right": os.path.join(ASSETS_PATH, "player_walk_right.png"),
+                   "player_idle_right": os.path.join(ASSETS_PATH, "player_idle_right.png"),
+                   "captain_idle_down": os.path.join(ASSETS_PATH, "captain_idle_down.png"),
+                   "captain_idle_right": os.path.join(ASSETS_PATH, "captain_idle_right.png"),
+                   "captain_idle_up": os.path.join(ASSETS_PATH, "captain_idle_up.png"),
+                   "captain_walk_down": os.path.join(ASSETS_PATH, "captain_walk.png"),
+                   "captain_walk_right": os.path.join(ASSETS_PATH, "captain_walk_right.png"),
+                   "captain_walk_up": os.path.join(ASSETS_PATH, "captain_walk_up.png"),
                    "Jute2": os.path.join(ASSETS_PATH, "jute_mature.png"),
                    "Jute1": os.path.join(ASSETS_PATH, "jute_sprout.png"),
                    "Seed": os.path.join(ASSETS_PATH, "seed.png"),

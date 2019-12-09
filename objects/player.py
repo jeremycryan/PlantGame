@@ -7,6 +7,7 @@ from objects.character import Character
 class Player(Character):
 
     def __init__(self, scene, pos=(3, 3)):
+        self.name = "Player"
         super().__init__(scene, pos=pos)
         self.priority = 3
 
@@ -24,6 +25,9 @@ class Player(Character):
 
             # Push events onto the stack for keydowns
             if event.type == pygame.KEYDOWN:
+                if not self.scene.game.enable_player_movement:
+                    continue
+
                 if event.key in self.control_dict:
                     self.press_stack.append(event.key)
 
@@ -33,9 +37,6 @@ class Player(Character):
                     for item in facing_contents:
                         if item.interactive:
                             self.interact(item)
-
-                if event.key == pygame.K_c:
-                    self.scene.next_day()
 
             # And remove from stack for keyups
             if event.type == pygame.KEYUP:

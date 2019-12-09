@@ -1,5 +1,6 @@
 import random
 
+import pygame
 import helpers as h
 import constants as c
 from objects.overworld_object import OverWorldObject
@@ -8,23 +9,29 @@ from objects.dialogue import Dialogue
 
 
 class Character(OverWorldObject):
+    name = None
+
     def __init__(self, scene, pos=(3, 3)):
         super().__init__(scene)
         self.priority = 3
         self.blocking = True
         self.interactive = True
         self.dialogue = None
-        self.name = None
 
-        down = SpriteSheet(scene.load_image("player_walk_down"), (6, 1), 6)
-        up = SpriteSheet(scene.load_image("player_walk_up"), (6, 1), 6)
-        down_idle = SpriteSheet(scene.load_image("player_idle_down"), (4, 1), 4)
-        up_idle = SpriteSheet(scene.load_image("player_idle_up"), (4, 1), 4)
-        right = SpriteSheet(scene.load_image("player_walk_right"), (6, 1), 6)
-        left = SpriteSheet(scene.load_image("player_walk_right"), (6, 1), 6)
+        tag_dict = {"Player": "player",
+                    "Emilia": "captain",
+                    None: "player"}
+        tag = tag_dict[self.name]
+
+        down = SpriteSheet(scene.load_image(f"{tag}_walk_down"), (6, 1), 6)
+        up = SpriteSheet(scene.load_image(f"{tag}_walk_up"), (6, 1), 6)
+        down_idle = SpriteSheet(scene.load_image(f"{tag}_idle_down"), (4, 1), 4)
+        up_idle = SpriteSheet(scene.load_image(f"{tag}_idle_up"), (4, 1), 4)
+        right = SpriteSheet(scene.load_image(f"{tag}_walk_right"), (6, 1), 6)
+        left = SpriteSheet(scene.load_image(f"{tag}_walk_right"), (6, 1), 6)
         left.reverse(1, 0)
-        right_idle = SpriteSheet(scene.load_image("player_idle_right"), (4, 1), 4)
-        left_idle = SpriteSheet(scene.load_image("player_idle_right"), (4, 1), 4)
+        right_idle = SpriteSheet(scene.load_image(f"{tag}_idle_right"), (4, 1), 4)
+        left_idle = SpriteSheet(scene.load_image(f"{tag}_idle_right"), (4, 1), 4)
         left_idle.reverse(1, 0)
         self.sprite = Sprite(8)
         self.sprite.add_animation({"down": down,
@@ -58,10 +65,24 @@ class Character(OverWorldObject):
         self.last_face_direction = c.DOWN
         self.since_arrive = 999
 
+        self.shadow_surf = pygame.Surface(c.TILE_SIZE)
+        self.shadow_surf.fill(c.WHITE)
+        width = int(c.TILE_WIDTH * 0.7)
+        height = int(c.TILE_HEIGHT * 0.5)
+        pygame.draw.ellipse(self.shadow_surf,
+                            c.BLACK,
+                            (c.TILE_WIDTH//2 - width//2,
+                             3.2*c.TILE_HEIGHT//5 - height//2,
+                             width,
+                             height))
+        self.shadow_surf.set_alpha(30)
+        self.shadow_surf.set_colorkey(c.WHITE)
+
     def draw(self, surface):
         draw_x, draw_y = self.scene.camera.grid_to_screen(self.draw_x, self.draw_y)
-        yoff = c.TILE_HEIGHT//2
+        yoff = c.TILE_HEIGHT//1.5
         self.sprite.set_position((draw_x, draw_y - yoff))
+        surface.blit(self.shadow_surf, (draw_x, draw_y))
         self.sprite.draw(surface)
 
     def touch(self):
@@ -144,17 +165,31 @@ class Character(OverWorldObject):
 class Rando(Character):
 
     def __init__(self, scene, pos=(3, 3)):
-        super().__init__(scene, pos=pos)
         self.name = "Emilia"
+        super().__init__(scene, pos=pos)
 
     def update(self, dt, events):
-        if not self.in_motion and self.since_move > 2:
+        if not self.in_motion and self.since_move > 3 and self.scene.dialogue_box.hidden:
             self.move(random.choice(c.DIRECTIONS))
         super().update(dt, events)
 
     def touch(self):
         self.scene.dialogue_box.load_dialogue("emilia_example", self.name)
         self.scene.dialogue_box.show()
+
+        if self.scene.player.x < self.x:
+            self.face_direction = c.LEFT
+            self.sprite.start_animation("left_idle")
+        elif self.scene.player.x > self.x:
+            self.face_direction = c.RIGHT
+            self.sprite.start_animation("right_idle")
+        elif self.scene.player.y < self.y:
+            self.face_direction = c.UP
+            self.sprite.start_animation("up_idle")
+        elif self.scene.player.y > self.y:
+            self.face_direction = c.DOWN
+            self.sprite.start_animation("down_idle")
+        self.last_face_direction = self.face_direction
 
 
 class CharacterShadow(OverWorldObject):
