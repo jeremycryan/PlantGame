@@ -4,7 +4,7 @@ import string
 import constants as c
 import copy
 from objects.dialogue import Dialogue
-from objects.menu import plant_menu
+from objects.menu import plant_menu, character_menu
 
 
 class DialogueBox:
@@ -13,6 +13,7 @@ class DialogueBox:
 
         self.scene = scene
         self.box_type = None
+        self.menu_type = None
         self.dialogue_type = None
         self.current_selection = 1
 
@@ -46,11 +47,20 @@ class DialogueBox:
     def load_plant_menu(self, growth_stage, plant, plot):
         self.plot = plot
         self.box_type = 'MENU'
+        self.menu_type = 'PLANT'
         self.dialogue_type = None
         self.show()
         menu = plant_menu(self.scene, growth_stage, plant, plot)
         self.text_queue = menu.text
 
+    def load_character_menu(self, tag, name):
+        self.box_type = 'MENU'
+        self.menu_type = 'CHARACTER'
+        self.tag = tag
+        self.name = name
+        menu = character_menu(self.scene)
+        self.text_queue = menu.text
+        self.show()
     def draw(self):
         """ Draws the dialogue box on the screen. """
 
@@ -152,13 +162,23 @@ class DialogueBox:
             elif self.box_type == 'MENU':
                 choice = copy.copy(self.text_queue[self.current_selection-1])
                 self.text_queue = []
-                if choice == 'Plant Seed':
-                    self.plot.plant_seed()
-                elif choice == 'Remove Seed' or choice == 'Remove Plant':
-                    self.plot.remove_seed()
-                elif choice == 'Prune':
-                    self.plot.plant.prune()
-                elif choice == 'Harvest Fruit' or choice == 'Harvest':
-                    self.plot.plant.harvest()
                 self.current_selection = 1
-                self.hide()
+
+                if self.menu_type == 'PLANT':
+                    if choice == 'Plant Seed':
+                        self.plot.plant_seed()
+                    elif choice == 'Remove Seed' or choice == 'Remove Plant':
+                        self.plot.remove_seed()
+                    elif choice == 'Prune':
+                        self.plot.plant.prune()
+                    elif choice == 'Harvest Fruit' or choice == 'Harvest':
+                        self.plot.plant.harvest()
+                    self.hide()
+                elif self.menu_type == 'CHARACTER':
+                    if choice == 'Talk':
+                        print("test")
+                        self.load_dialogue(self.tag,self.name)
+                    elif choice == 'Give':
+                        self.hide()
+                    elif choice == 'Quit':
+                        self.hide()

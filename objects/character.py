@@ -174,8 +174,7 @@ class Rando(Character):
         super().update(dt, events)
 
     def touch(self):
-        self.scene.dialogue_box.load_dialogue("emilia_example", self.name)
-        self.scene.dialogue_box.show()
+        self.scene.dialogue_box.load_character_menu("emilia_example", self.name)
 
         if self.scene.player.x < self.x:
             self.face_direction = c.LEFT
