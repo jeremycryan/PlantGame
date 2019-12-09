@@ -31,7 +31,7 @@ class Game:
 
     def initialize_screen(self):
         """ Creates a PyGame window and sets the caption """
-        self.screen = pygame.display.set_mode(c.WINDOW_SIZE)
+        self.screen = pygame.display.set_mode(c.WINDOW_SIZE, pygame.FULLSCREEN)
         pygame.display.set_caption(c.WINDOW_CAPTION)
 
     def initialize_shade(self):

@@ -22,7 +22,7 @@ class OverWorld(Scene):
         self.next_scene = None
 
     def draw(self, surface):
-        surface.fill((100, 150, 200))
+        surface.fill((20, 20, 60))
         self.map.draw()
         self.dialogue_box.draw()
 

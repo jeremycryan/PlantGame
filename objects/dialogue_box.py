@@ -84,6 +84,7 @@ class DialogueBox:
         string_to_print = self.text_queue[0]
         if self.dialogue_type != 'NPC':
             string_to_print = "\n".join(self.text_queue)
+            self.frame_age = 999
         chars_to_display = int(self.frame_age * c.BOX_CHARACTER_RATE)
         chars_displayed = 0
         for word in string_to_print.split(" "):
