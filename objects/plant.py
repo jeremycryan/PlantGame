@@ -125,6 +125,7 @@ class Strawberry(Plant):
 
     def harvest(self):
         self.fruit_period = 4
+        self.state = c.MATURE
         return inv.Strawberry(self.game)
 
 

@@ -30,11 +30,33 @@ START
 Who knows, maybe they are in the other rooms.
 END
 
-BRANCHES:NONE
+BRANCHES: TAG 6
 ____________________________________________
 TAG 5 NPC:
 
 START
 .....
+END
+BRANCHES:NONE
+-----------------------------------------------
+TAG 6 PLAYER:
+
+START
+Okay, I'll look around.
+I'm pretty sure there's no one else on board.
+END
+BRANCHES: TAG 7 TAG 8
+----------------------------------------------
+TAG 7 NPC:
+
+START
+Say hi for me when you find them.
+END
+BRANCHES: NONE
+------------------------------------------------
+TAG 8 NPC:
+
+START
+I think you just haven't looked hard enough.
 END
 BRANCHES:NONE
